@@ -1,0 +1,6 @@
+#logs
+logs/
+#testing
+static/
+static/game.js
+assets/
