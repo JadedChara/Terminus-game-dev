@@ -33,29 +33,37 @@ var server = http.Server(app);
 //Sets up the multiplayer feature with socketIO
 var io = socketIO(server);
 
-//Sets a port to listen on for connecting to the game.
 
-
-function initServer(port,directory, html){
+//
+//
+//
+function initServer(port,directory, html, template){
+  //Creates the directory you want to host
   fs.mkdir(path.join(__dirname, directory), (err) => {
     if (err) {
         return console.error(err);
     }});
-  
+  //For this, you should have a template file you use in order to host additional servers.
+  fs.writeFile(directory + '/' + html,template)
+  //Sets port you plan on using for connecting clients. Be sure you forward this when self-hosting.
   app.set('port', port);
-  //Sets up a hosting directory to use for the created html
+  //Sets up a hosting directory to use for the created html.
   app.use(directory, express.static(__dirname + directory))
   //Connects the html and starts up the server!
   app.get('/', function(request, response) {
-  response.sendFile(path.join(__dirname, 'index.html'));
+  response.sendFile(path.join(__dirname, directory + '/' + html));
   });
   //Listens on a secondary port.
   server.listen(port, function() {
-    console.log('Starting server on port 5000');
+    console.log('Starting server on port:'+ port);
   });
 }
 
-function connecting(playerjson, rankjson, factorjson){
+
+//playerjson = base values of player based on survival aspect. coordinates, 
+//rankjson = Structure of permissions for ranking; See template files . . .
+//factorjson = Additional attributes for player entities such as speed and size . . . 
+function initPlayer(playerjson, rankjson, factorjson){
   
   //Disconnect handling
   io.on('connection', function(socket) {
