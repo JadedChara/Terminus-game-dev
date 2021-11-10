@@ -58,7 +58,7 @@ function initServer(port,directory, html, template){
     console.log('Starting server on port:'+ port);
   });
 }
-
+module.exports = (initServer);
 
 //playerjson = base values of player based on survival aspect. coordinates, 
 //rankjson = Structure of permissions for ranking; See template files . . .
