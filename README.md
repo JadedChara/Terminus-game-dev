@@ -23,10 +23,10 @@ var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
 
-//(incomplete, but let's pretend there's a 'require' statement for this API while I figure out how to work with npm's system.)
+var terminus = require("terminus-game-dev-1");
 
 //Establish server for hosting. You'll want to also put in your scripts before going live with your game.
-initServer(5000,'lobbies','lobby.html', 'lobbyformat.html');
+terminus.initServer(5000,'lobbies','lobby.html', './lobbyformat.html');
 
 //
 
@@ -49,7 +49,7 @@ This API was designed to introduce functions that make it easier to manage your 
   Example:
 ```node 
 //initServer - Sets up server. Your main file will act as your control.
-initServer(8000, 'servers', 'lobby.html', 'lobbyformat.html')
+initServer(8000, 'servers', 'lobby.html', './lobbyformat.html')
 
 //Result: '/servers' folder with 'lobby.html' file generated from 'lobbyformat.html'. It will also allow for the scripts in the folder to be served.
 
