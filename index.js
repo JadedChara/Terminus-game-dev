@@ -37,6 +37,30 @@ var io = socketIO(server);
 //
 //
 //
+
+function initSetup(directory, html, script, assetFolder, template){
+  fs.mkdir(directory, (err) => {
+    if (err) {
+        return console.error(err);
+    }},{recursive:true});
+  //For this, you should have a template file you use in order to host additional servers.
+  fs.mkdir (directory + "/" + assetFolder, (err) => {
+    if (err){
+      return console.error(err);
+    }
+  })
+  fs.mkdir 
+  fs.readFile(template, 'utf8',function(err, data){
+    if (err) {throw err};
+    console.log(data);
+    fs.writeFile(directory + '/' + html,data,function(){});
+  });
+
+  fs.readFile(script, 'utf8', function(err, data){
+    fs.writeFile(directory+ '/' + script,data,function(){})
+  });
+}
+
 function initServer(port,directory, html, template){
   //Creates the directory you want to host
   fs.mkdir(directory, (err) => {
@@ -65,7 +89,7 @@ function initServer(port,directory, html, template){
     console.log('Starting server on port:'+ port);
   });
 }
-module.exports = {initServer};
+module.exports = {initServer, initSetup};
 
 //playerjson = base values of player based on survival aspect. coordinates, 
 //rankjson = Structure of permissions for ranking; See template files . . .
