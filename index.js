@@ -89,7 +89,7 @@ function initServer(port,directory, html, template){
     console.log('Starting server on port:'+ port);
   });
 }
-module.exports = {initServer, initSetup};
+
 
 //playerjson = base values of player based on survival aspect. coordinates, 
 //rankjson = Structure of permissions for ranking; See template files . . .
@@ -102,8 +102,15 @@ function initPlayer(playerjson, rankjson, factorjson){
       delete players[socket.id];
     });
   });
+
+  
   
   //
 }
 
 //initServer(8000, "voidtests","voidtest.html","./lobbyformat.html");
+
+function configModeration(commands, rankjson, permissions){
+  //
+}
+module.exports = {initServer, initSetup};
