@@ -59,9 +59,30 @@ function initSetup(directory, html, script, assetFolder, template){
   fs.readFile(script, 'utf8', function(err, data){
     fs.writeFile(directory+ '/' + script,data,function(){})
   });
+  fs.mkdir("./Database", (err) => {
+    if(err){
+      return console.error(err);
+    }
+  })
+  fs.mkdir("./Database/World", (err) => {
+    if(err){
+      return console.error(err);
+    }
+  })
+  fs.mkdir("./Database/Members", (err) => {
+    if(err){
+      return console.error(err);
+    }
+  })
+  fs.mkdir("./Database/Backups", (err) => {
+    if(err){
+      return console.error(err);
+    }
+  })
+  fs.writeFile("./Database/Members/archive.json","{}", function(){})
 }
 
-function initServer(port,directory, html, template){
+function initServer(port, directory, html, template){
   //Creates the directory you want to host
   fs.mkdir(directory, (err) => {
     if (err) {
@@ -82,7 +103,7 @@ function initServer(port,directory, html, template){
   app.use(directory, express.static(directory))
   //Connects the html and starts up the server!
   app.get('/', function(request, response) {
-  response.sendFile(path.join((__dirname+("../")), directory + '/' + html));
+  response.sendFile(path.join((__dirname), directory + '/' + html));
   });
   //Listens on a secondary port.
   server.listen(port, function() {
@@ -98,9 +119,15 @@ function initPlayer(playerjson, rankjson, factorjson){
   
   //Disconnect handling
   io.on('connection', function(socket) {
-    socket.on("disconnect", () => {
-      delete players[socket.id];
-    });
+
+    socket.on('new player', function(userdata){
+      //DB references!
+      fs.readFile("./Database/Members/archive.json",'utf8',function(err,data){
+        if (err){throw err};
+        //data[userdata.username]
+      })
+      //players[socket.id] = playerjson;
+    })
   });
 
   
@@ -114,3 +141,5 @@ function configModeration(commands, rankjson, permissions){
   //
 }
 module.exports = {initServer, initSetup};
+
+initSetup("directory","lobby.html","./script.js","./JSON-stash","./lobbyformat.html")
