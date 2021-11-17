@@ -44,7 +44,7 @@ function initSetup(directory, html, script, assetFolder, template){
         return console.error(err);
     }},{recursive:true});
   //For this, you should have a template file you use in order to host additional servers.
-  fs.mkdir (directory + "/" + assetFolder, (err) => {
+  fs.mkdir (directory + "/" + assetFolder,{recursive:true}, (err) => {
     if (err){
       return console.error(err);
     }
@@ -59,22 +59,22 @@ function initSetup(directory, html, script, assetFolder, template){
   fs.readFile(script, 'utf8', function(err, data){
     fs.writeFile(directory+ '/' + script,data,function(){})
   });
-  fs.mkdir("./Database", (err) => {
+  fs.mkdir("./Database",{recursive:true}, (err) => {
     if(err){
       return console.error(err);
     }
   })
-  fs.mkdir("./Database/World", (err) => {
+  fs.mkdir("./Database/World",{recursive:true}, (err) => {
     if(err){
       return console.error(err);
     }
   })
-  fs.mkdir("./Database/Members", (err) => {
+  fs.mkdir("./Database/Members",{recursive:true}, (err) => {
     if(err){
       return console.error(err);
     }
   })
-  fs.mkdir("./Database/Backups", (err) => {
+  fs.mkdir("./Database/Backups",{recursive:true}, (err) => {
     if(err){
       return console.error(err);
     }
@@ -84,7 +84,7 @@ function initSetup(directory, html, script, assetFolder, template){
 
 function initServer(port, directory, html, template){
   //Creates the directory you want to host
-  fs.mkdir(directory, (err) => {
+  fs.mkdir(directory,{recursive:true}, (err) => {
     if (err) {
         return console.error(err);
     }},{recursive:true});
@@ -142,4 +142,4 @@ function configModeration(commands, rankjson, permissions){
 }
 module.exports = {initServer, initSetup};
 
-initSetup("directory","lobby.html","./script.js","./JSON-stash","./lobbyformat.html")
+//initSetup("directory","lobby.html","./script.js","./JSON-stash","./lobbyformat.html")

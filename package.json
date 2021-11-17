@@ -1,6 +1,6 @@
 {
   "name": "terminus-game-dev-1",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Our initial kit for quick game development! Good for .io games among other things.",
   "main": "index.js",
   "scripts": {
