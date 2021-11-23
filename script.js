@@ -1,33 +1,29 @@
-//===================
-//||    IMPORTS    ||
-//===================
 
-//web framework
-//Source: https://github.com/expressjs/express
-var express = require('express');
-
-//http webpage setup
-//Source: NodeJS default API
-var http = require('http');
-
-//file nav
-//Source: NodeJS default API
-var path = require('path');
-
-//Advanced server management (multiplayer)
-//Source: https://github.com/socketio/socket.io
-var socketIO = require('socket.io');
-
-var fs = require('fs');
-
-//==============================
-//||  CLIENT-SIDE MANAGEMENT  ||
-//==============================
+var socket = io();
 
 
-document.addEventListener('click', function(event){
+//chat can be either 'false', or JSON info.
+function clientConnect(){
+  var userdata = {
+    x:0,
+    y:0,
+    rot:0,
+    HP:100,
+    msg:"",
+    rank:1
+  }
+  socket.emit('new player',userdata);
+}
+clientConnect();
+
+document.addEventListener("DOMContentLoaded",function(){
+  
+  var msgBtn = document.getElementById("sendmessage");
+  msgBtn.addEventListener("click",function(event){
+    socket.emit("msgClick",document.getElementById("msgContent").value);
+    document.getElementById("msgContent").value = "";
+  })
   //
   //
   //
-  socket.emit();
 })

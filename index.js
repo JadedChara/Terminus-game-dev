@@ -38,26 +38,20 @@ var io = socketIO(server);
 //
 //
 
-function initSetup(directory, html, script, assetFolder, template){
-  fs.mkdir(directory, (err) => {
-    if (err) {
-        return console.error(err);
-    }},{recursive:true});
-  //For this, you should have a template file you use in order to host additional servers.
-  fs.mkdir (directory + "/" + assetFolder,{recursive:true}, (err) => {
+function initSetup(port, html, script, template){
+  
+  fs.mkdir ("./static",{recursive:true}, (err) => {
     if (err){
       return console.error(err);
     }
   })
-  fs.mkdir 
   fs.readFile(template, 'utf8',function(err, data){
     if (err) {throw err};
-    console.log(data);
-    fs.writeFile(directory + '/' + html,data,function(){});
+    fs.writeFile('./' + html,data,function(){});
   });
 
   fs.readFile(script, 'utf8', function(err, data){
-    fs.writeFile(directory+ '/' + script,data,function(){})
+    fs.writeFile('./static/' + script,data,function(){})
   });
   fs.mkdir("./Database",{recursive:true}, (err) => {
     if(err){
@@ -80,55 +74,42 @@ function initSetup(directory, html, script, assetFolder, template){
     }
   })
   fs.writeFile("./Database/Members/archive.json","{}", function(){})
-}
 
-function initServer(port, directory, html, template){
-  //Creates the directory you want to host
-  fs.mkdir(directory,{recursive:true}, (err) => {
-    if (err) {
-        return console.error(err);
-    }},{recursive:true});
-  //For this, you should have a template file you use in order to host additional servers.
-  
-  fs.readFile(template, 'utf8',function(err, data){
-    if (err) {throw err};
-    console.log(data);
-    fs.writeFile(directory + '/' + html,data,function(){});
-  });
-
-  
-  //Sets port you plan on using for connecting clients. Be sure you forward this when self-hosting.
   app.set('port', port);
-  //Sets up a hosting directory to use for the created html.
-  app.use(directory, express.static(directory))
-  //Connects the html and starts up the server!
+  app.use(('/static'), express.static(("./"+'/static')))
   app.get('/', function(request, response) {
-  response.sendFile(path.join((__dirname), directory + '/' + html));
+    response.sendFile(html,{root:("./")});
   });
-  //Listens on a secondary port.
   server.listen(port, function() {
     console.log('Starting server on port:'+ port);
   });
 }
 
-
-//playerjson = base values of player based on survival aspect. coordinates, 
-//rankjson = Structure of permissions for ranking; See template files . . .
-//factorjson = Additional attributes for player entities such as speed and size . . . 
-function initPlayer(playerjson, rankjson, factorjson){
-  
-  //Disconnect handling
+var players={};
+function initPlayer(){
+  console.log('hai')
+  players={};
   io.on('connection', function(socket) {
-
+    console.log("a user connected");
+    socket.on("disconnect", () => {
+      delete players[socket.id];
+    });
     socket.on('new player', function(userdata){
-      //DB references!
-      fs.readFile("./Database/Members/archive.json",'utf8',function(err,data){
-        if (err){throw err};
-        //data[userdata.username]
-      })
-      //players[socket.id] = playerjson;
+      console.log("a user connected");
+      players[socket.id] = userdata;
+      console.log(userdata);
     })
+    socket.on('msgClick', function(msgr){
+      var player = players[socket.id];
+      player.msg = msgr;
+    })
+    
   });
+  setInterval(function() {
+    io.sockets.emit('state', players);
+    console.clear();
+    console.log(players)
+  }, 1000 / 60);
 
   
   
@@ -140,6 +121,9 @@ function initPlayer(playerjson, rankjson, factorjson){
 function configModeration(commands, rankjson, permissions){
   //
 }
-module.exports = {initServer, initSetup};
+module.exports = {initSetup,initPlayer};
 
-//initSetup("directory","lobby.html","./script.js","./JSON-stash","./lobbyformat.html")
+
+//initSetup(8000,"lobby.html","./script.js","./lobbyformat.html")
+
+//initPlayer();
