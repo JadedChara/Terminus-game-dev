@@ -38,17 +38,13 @@ var io = socketIO(server);
 //
 //
 
-function initSetup(port, html, script, template){
+function initSetup(port, html, script){
   
   fs.mkdir ("./static",{recursive:true}, (err) => {
     if (err){
       return console.error(err);
     }
   })
-  fs.readFile(template, 'utf8',function(err, data){
-    if (err) {throw err};
-    fs.writeFile('./' + html,data,function(){});
-  });
 
   fs.readFile(script, 'utf8', function(err, data){
     fs.writeFile('./static/' + script,data,function(){})
@@ -92,10 +88,10 @@ function initPlayer(){
   io.on('connection', function(socket) {
     console.log("a user connected");
     socket.on("disconnect", () => {
+      
       delete players[socket.id];
     });
     socket.on('new player', function(userdata){
-      console.log("a user connected");
       players[socket.id] = userdata;
       console.log(userdata);
     })
@@ -124,6 +120,6 @@ function configModeration(commands, rankjson, permissions){
 module.exports = {initSetup,initPlayer};
 
 
-//initSetup(8000,"lobby.html","./script.js","./lobbyformat.html")
+initSetup(8000,"./lobby.html","./script.js")
 
-//initPlayer();
+initPlayer();

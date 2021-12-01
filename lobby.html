@@ -1,41 +1,129 @@
 <html>
-<body style="background-color:black;">
+<body style="background-color:black; overflow:hidden;">
   <head>
-    <title>Test</title>
-    <link rel="shortcut icon" href="/favicon.ico">
+    <title>Terminus Beta Test 0.1.3</title>
+    <link rel="shortcut icon" href="./favicon.ico">
     <script src="/socket.io/socket.io.js"></script>
     <script src="./static/script.js"></script>
     <script src="./index.js"></script>
     <style>
-      p {
-        color: white;
-        font-size: 10px;
+      .instructions {
+        color: #9A0000;
+        font-weight: bold;
+        font-size: 12px;
+        margin-top: 20px;
+        margin-left: 20px;
+        background-color:#DDDDDD;
+        border: 5px #DDDDDD;
+        border-radius: 5px;
+        padding: 5px;
+        width:500px;
+        font-family:Arial;
       }
       canvas {
             background-color: white;
+            margin-left:25px;
       }
       button {
-        //background-color: red;
-        //border: 5px solid red;
-        //color: white;
-        //font-size: 12px;
+        background-color: white;
+        border: 2px solid red;
+        color: red;
+        font-size: 12px;
+        font-weight: bold;
+        font-family:Arial;
       }
+      .game {
+        display: none;
+      }
+      .login {
+        display: initial;
+        align: center;
+      }
+      .logintab {
+        background-color: grey;
+        margin-top:auto;
+        margin-bottom:auto;
+        align: center;
+        border-radius:5px;
+      }
+      .loginalign {
+        margin-left:auto;
+        margin-right: auto;
+
+      }
+      .joinbutton {
+        transition-duration:0.4s;
+        cursor:pointer;
+        background-color:#900000;
+        color: white;
+        border: 5px #900000;
+        font-weight:bold;
+        letter-spacing: 7px;
+        margin-bottom:15px;
+        font-size: 24px;
+        width:150px;
+        height:50px;
+        border-radius: 5px;
+      }
+      .joinbutton:hover {
+        background-color:#DDDDDD;
+        color:#900000;
+        border:5px #DDDDDD;
+      }
+      .splashtext {
+        margin-top:10px;
+        color:#900000;
+        font-size:32px;
+        font-family:Arial;
+      }
+      .nameinput {
+        font-size:20px;
+        border:5px black;
+        border-radius: 5px;
+        placeholder:"hello";
+      }
+      .msgBtn{
+        background-color:#900000;
+        color:white;
+        font-weight:bold;
+        font-size:18px;
+        border:5px #900000;
+        border-radius:5px;
+      }
+      .playerzone{}
+
     </style>  
   </head>
   <body>
-    <table>
-      <tr>
-        <th border="5px solid black">
-          <canvas id="playermap" height="500px" width="800px" border="5px solid black" border-style="outset"></canvas>
-        </th>
-        <th>
-          <canvas id="chatlog"></canvas>
-          <input type = "text" id="msgContent"></input>
-          <input type = "button" id="sendmessage">SEND</input>
-        </th>
-      </tr>
-    </table>
-    <p> Controls are straigthforward. WASD for movement, K for authentication, Space for sprinting, and T for chat. </p>
+    <p class="instructions"> Tip: Controls are straigthforward. WASD for movement, K for authentication, Space for sprinting, and T for chat. </p>
+    <div id="loginScreen" class="login">
+      <table class="loginalign" style="float:center">
+        <tr >
+          <th class="logintab" style="width:250px;height:180px">
+            <p class="splashtext">WELCOME!</p>
+            <input type= "text" id="nameinput" class="nameinput" style="width:140px; margin-bottom:10px font-size:20px"></input>
+            <br></br>
+            <input type = "button" id="joinBtn" value="JOIN!" align="center"class="joinbutton"></input>
+          </th>
+        </tr>
+      </table>
+    </div>
+    <div id="gamewindow" class="game">
+      <table>
+        <tr>
+          <th class="playerzone" border="5px solid black">
+            <canvas id="playermap" height="500px" width="800px" border="5px solid black" border-style="outset"></canvas>
+          </th>
+          <th class="chatlog">
+            <canvas id="chatlog"></canvas>
+            <br></br>
+            <input type = "text" id="msgContent"></input>
+            <input type = "button" id="sendmessage" value="SEND" class="msgBtn"></input>
+          </th>
+        </tr>
+      </table>
+      </div>
+
   </body>
 
 

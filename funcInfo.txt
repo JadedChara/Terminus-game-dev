@@ -1,0 +1,12 @@
+~~~~~~~~
+index.js
+~~~~~~~~
+
+initSetup(<port>,<html>,<script>)
+initPlayer()
+
+~~~~~~~~
+script.js (For now. Will migrate code over to main index file.)
+~~~~~~~~
+
+clientConnect(mode)
