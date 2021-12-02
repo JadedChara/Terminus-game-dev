@@ -33,8 +33,6 @@ function clientConnect(start,button,txtInput,chatState){
 
       })
 
-      //Sending messages by pressing 'enter' key
-      
         
     })
   }

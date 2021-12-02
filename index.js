@@ -83,17 +83,14 @@ function initSetup(port, html, script){
 
 var players={};
 function initPlayer(){
-  console.log('hai')
   players={};
   io.on('connection', function(socket) {
-    console.log("a user connected");
     socket.on("disconnect", () => {
       
       delete players[socket.id];
     });
     socket.on('new player', function(userdata){
       players[socket.id] = userdata;
-      console.log(userdata);
     })
     socket.on('msgClick', function(msgr){
       var player = players[socket.id];
