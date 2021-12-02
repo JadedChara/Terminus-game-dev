@@ -90,7 +90,7 @@ initServer(8000, './lobby.html', './script.js')
     * [ ] Gravity
     * [ ] Acceleration
     * [ ] Sliding
-  * Gameplay types
+  * [ ] Gameplay types
     * [ ] Racing
     * [ ] PVP
       * [ ] FPS
