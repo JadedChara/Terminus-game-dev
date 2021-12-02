@@ -1,5 +1,7 @@
 # Terminus Industries Game API
 Created by: [Nightstrike & The TI Crew](https://www.nightstrike.wixsite.com/terminus-industries)!
+
+**WARNING:** Currently incomplete. Key functionality is still being worked on. Use at your own risk.
 ## A Brief Introduction...
 When I set out to make this, I aimed to introduce adaptability into a framework I had created. I am by no means a professional, but I do enjoy being able to streamline the process for others!
 
