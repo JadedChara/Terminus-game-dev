@@ -63,12 +63,41 @@ This API was designed to introduce functions that make it easier to manage your 
 
 initServer(8000, './lobby.html', './script.js')
 
-//Result: Serves a lobby with a static folder and the potential for additional client-side asset deployment.
+//Result: Serves a lobby with a static folder and the potential for additional client-side asset deployment. Nearly ready! Minor bugs are present at this point.
 
 ```
 
-* **initPlayer()** - 3 parameters need to be used for this. Before initialization, you should create `.json` files with the necessary info. More on this later!
+* **initPlayer()** - 3 parameters need to be used for this. Before initialization, you should create `.json` files with the necessary info. More on this later, once it's complete!!
 ```node
 //
 
 ```
+
+## To-do
+- [X] `initServer(port,html,script)`
+  - [X] Server starts up!
+  - [X] Communication with `/static` folder.
+  - [X] Generation of Database folder.
+    - [ ] Archive logging.
+- [X] `initPlayer()`
+  - [X] Data transmitted, including messages
+    - [ ] *BUGFIX: Message sending breaks loop, resulting in repeated logs of player info.*
+  - [ ] Movement handlers
+    - [ ] Top-view
+    - [ ] Side-scrolling
+    - [ ] 3D ([three.js](https://threejs.org))
+  - [ ] Physics
+    - [ ] Gravity
+    - [ ] Acceleration
+    - [ ] Sliding
+  - Gameplay types
+    - [ ] Racing
+    - [ ] PVP
+      - [ ] FPS
+  - [ ] Gamemode handlers
+  - [ ] Rendering Handlers
+  - [ ] *Functionality: Store data server-side to prevent exploits.*
+- [ ] Accounts
+  - [X] Transmission of data (i.e. presets and messages)
+  - [ ] DB for account access and recording of data.
+  - [ ] Failsafes.
