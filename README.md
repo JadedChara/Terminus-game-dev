@@ -74,30 +74,30 @@ initServer(8000, './lobby.html', './script.js')
 ```
 
 ## To-do
-- [X] `initServer(port,html,script)`
-  - [X] Server starts up!
-  - [X] Communication with `/static` folder.
-  - [X] Generation of Database folder.
-    - [ ] Archive logging.
-- [X] `initPlayer()`
-  - [X] Data transmitted, including messages
-    - [ ] *BUGFIX: Message sending breaks loop, resulting in repeated logs of player info.*
-  - [ ] Movement handlers
-    - [ ] Top-view
-    - [ ] Side-scrolling
-    - [ ] 3D ([three.js](https://threejs.org))
-  - [ ] Physics
-    - [ ] Gravity
-    - [ ] Acceleration
-    - [ ] Sliding
-  - Gameplay types
-    - [ ] Racing
-    - [ ] PVP
-      - [ ] FPS
-  - [ ] Gamemode handlers
-  - [ ] Rendering Handlers
-  - [ ] *Functionality: Store data server-side to prevent exploits.*
-- [ ] Accounts
-  - [X] Transmission of data (i.e. presets and messages)
-  - [ ] DB for account access and recording of data.
-  - [ ] Failsafes.
+* [X] `initServer(port,html,script)`
+  * [X] Server starts up!
+  * [X] Communication with `/static` folder.
+  * [X] Generation of Database folder.
+    * [ ] Archive logging.
+* [X] `initPlayer()`
+  * [X] Data transmitted, including messages
+    * [ ] *BUGFIX: Message sending breaks loop, resulting in repeated logs of player info.*
+  * [ ] Movement handlers
+    * [ ] Top-view
+    * [ ] Side-scrolling
+    * [ ] 3D ([three.js](https://threejs.org))
+  * [ ] Physics
+    * [ ] Gravity
+    * [ ] Acceleration
+    * [ ] Sliding
+  * Gameplay types
+    * [ ] Racing
+    * [ ] PVP
+      * [ ] FPS
+  * [ ] Gamemode handlers
+  * [ ] Rendering Handlers
+  * [ ] *Functionality: Store data server-side to prevent exploits.*
+* [ ] Accounts
+  * [X] Transmission of data (i.e. presets and messages)
+  * [ ] DB for account access and recording of data.
+  * [ ] Failsafes.
