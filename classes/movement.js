@@ -1,5 +1,0 @@
-function sideScroller(){
-  //
-}
-
-function topView(){}

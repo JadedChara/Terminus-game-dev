@@ -1,3 +1,0 @@
-function NPC(){}
-
-function Client(){}

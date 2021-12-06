@@ -25,7 +25,7 @@ function colorRandomizer(){
 //=========================
 
 //General idea: Retrieves player sprite from player data and draws it on the canvas. By doing it this way, the sprite can be more dynamic based upon movement and timing. Probably going to work in movement for sprites later.
-
+//This is similar to terminus.class.entity.Client() but this handles "frontend stuff" like appearance and how it's drawn, while the other function handles actual position data that gets transmitted to entities and players, like gridding and such.
 function Sprite2D(userdata,ctrlPoint){
   //Establish scale resource, with defined points based on gamemode and movement;
 
