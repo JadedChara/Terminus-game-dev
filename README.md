@@ -101,3 +101,6 @@ initServer(8000, './lobby.html', './script.js')
   * [X] Transmission of data (i.e. presets and messages)
   * [ ] DB for account access and recording of data.
   * [ ] Failsafes.
+
+## Languages Used
+![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)

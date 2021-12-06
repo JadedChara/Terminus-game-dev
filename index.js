@@ -120,3 +120,5 @@ module.exports = {initSetup,initPlayer};
 initSetup(8000,"./lobby.html","./script.js")
 
 initPlayer();
+
+
