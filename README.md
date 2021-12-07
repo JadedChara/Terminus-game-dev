@@ -5,6 +5,10 @@ Created by: [Nightstrike & The TI Crew](https://www.nightstrike.wixsite.com/term
 ## A Brief Introduction...
 When I set out to make this, I aimed to introduce adaptability into a framework I had created. I am by no means a professional, but I do enjoy being able to streamline the process for others!
 
+I am currently working on resecuring the client stuff so that we can avoid exploits. I'm not sure how to pass checks on movements or actions yet, so it won't be perfect.
+
+~ J (Nightstrike)
+
 ## Dependencies
 
 These are not necessary to state explicitly, but if for some reason they don't get pulled when you use this package, then please refer to this repo's `index.js` for how you'd reference your imports.
@@ -48,6 +52,8 @@ terminus.initSetup(8000, "./lobby.html","./script.js");
 ## Usage
 This API was designed to introduce functions that make it easier to manage your games, and focus less on the implementation of other modules. 
 
+### Server-side
+
 * **initSetup()** - This command performs your initial setup, and generates your main files. It's used for initializing your workspace, not correcting corrupted files. Keep in mind the folder layout as you set up your references. This will also launch your game, but connections can be quickly closed if need be.
  
   * `<'html'>` - the name of your served file. Remember to namespace sections properly!
@@ -61,17 +67,38 @@ This API was designed to introduce functions that make it easier to manage your 
   Example:
 ```node 
 
-initServer(8000, './lobby.html', './script.js')
+initServer(8000, './lobby.html', './script.js');
+//then...
+initPlayer();
 
-//Result: Serves a lobby with a static folder and the potential for additional client-side asset deployment. Nearly ready! Minor bugs are present at this point.
-
-```
-
-* **initPlayer()** - 3 parameters need to be used for this. Before initialization, you should create `.json` files with the necessary info. More on this later, once it's complete!!
-```node
-//
+//Result: Serves a lobby with a static folder and the potential for additional client-side asset deployment. Nearly ready! Minor bugs are present at this point Additionally, once you've got your client-side stuff set up, it will register your connection.
 
 ```
+
+* **initPlayer()** - This will facilitate the Websocket connection for players. Currently, playerdata is being incorporated into this, so as to resecure client instances.
+
+### Client-side
+
+* **clientConnect()** - This will transmit your data upon connection. It's currently a work-in-progress, so security is non-existent, and anyone can exploit it.
+  * `<'start'>` - Defined JSON variable, which will be unified for every user. It includes all the data a user starts with.
+  * `<'button'>` - The name of your chat-send button. Necessary, but you can hide it if you set `chatState` to false.
+  * `<'txtInput'>` - The name of your text input. Again, necessary, but you can hide it if you don't want to implement a chat feature.
+  * `<'chatState'>` - Boolean. Defines transmission of messages to server, and other users.
+
+  ```node
+  var exampleStart = {
+    "username":"Guest",
+    "Password":"", //Will eventually implement MD5 for added security, but it's a GAME. 
+    "HP":"100", //Usage of this is recommended for victory/defeat mechanics.
+    "X":"400",
+    "Y":"400"
+  }
+  clientConnect(exampleStart,"sendmessage","msgContent",true);
+
+  //Result: Transmits data for each user who connects to the server. That data can then be managed by the operator.
+
+  ```
+
 
 ## To-do
 * [X] `initServer(port,html,script)`
