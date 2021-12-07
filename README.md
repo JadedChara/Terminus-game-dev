@@ -11,13 +11,13 @@ These are not necessary to state explicitly, but if for some reason they don't g
 
 * [Socket.io](https://socket.io) - Handles websocket connections. ESSENTIAL to your application, or else it won't run.
   ```node
-var socketIO = require('socket.io');
+  var socketIO = require('socket.io');
   ```
 * [Express](https://expressjs.com/) - allows the webpage to be served.
   ```node
-var express = require('express');
+  var express = require('express');
   ```
-*`http`, `path`, etc. ...
+* `http`, `path`, etc. ...
 
 ## Setup
 
