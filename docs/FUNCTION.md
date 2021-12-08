@@ -27,14 +27,13 @@ This specifies the initialization and communication back and forth. This is nece
 //Import
 var terminus = require('terminus-game-dev-1');
 
-//Initialize server setup, and begin listening for events...
 terminus.initSetup([<port>], [<html>],[<script>]);
-
-//port can be replaced with any value, but 8000 and 3030 are typically recommended for things like this.
-//html has to use a ./ namespace for referencing, while script directly corrects any attempts at injection by using an external reference file, again with the ./ reference.
+//port
+//html
+//script
 
 //Open connections for players to register, and details to be transmitted as needed.
-terminus.initPlayer(null); 
+terminus.initPlayer([<null>]); 
 
 //no fields needed
 
