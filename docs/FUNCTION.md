@@ -35,4 +35,5 @@ terminus.initSetup([<port>], [<html>],[<script>]);
 
 //Open connections for players to register, and details to be transmitted as needed.
 terminus.initPlayer();
+
 ```
