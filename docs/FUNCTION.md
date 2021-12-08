@@ -34,7 +34,7 @@ terminus.initSetup([<port>], [<html>],[<script>]);
 //html has to use a ./ namespace for referencing, while script directly corrects any attempts at injection by using an external reference file, again with the ./ reference.
 
 //Open connections for players to register, and details to be transmitted as needed.
-terminus.initPlayer(); 
+terminus.initPlayer(null); 
 
 //no fields needed
 
