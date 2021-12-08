@@ -18,6 +18,9 @@ var exampleStart={
 //chat can be either 'false', or JSON info.
 function clientConnect(start,button,txtInput,chatState){
   var userdata = start;
+  
+  //
+
   socket.emit('new player',userdata);
   if(chatState !== false ){
 
