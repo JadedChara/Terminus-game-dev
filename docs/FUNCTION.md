@@ -38,3 +38,8 @@ terminus.initPlayer([<null>]);
 //no fields needed
 
 ```
+## Client Functions
+
+For use in your client-side code, like `game.js`, `script.js`, or some such.
+
+### `terminus.game.clientConnect()`
