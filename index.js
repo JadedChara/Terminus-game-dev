@@ -89,17 +89,28 @@ function initPlayer(){
       
       delete players[socket.id];
     });
-    socket.on('new player', function(userdata){
+    socket.on('new player', function(reqForm){
+      var userdata = {
+        name:reqForm,
+        x:400, // 1/2 of map width
+        y:250, // 1/2 of map height
+        status:"idle", //"idle","dead","alive"
+        rot:0,
+        HP:100,
+        msg:"",
+        rank:1,
+        hitzone:undefined,
+      }
       players[socket.id] = userdata;
     })
     socket.on('msgClick', function(msgr){
-      var player = players[socket.id];
-      player.msg = msgr;
+      players[socket.id].msg = msgr;
     })
     
   });
   setInterval(function() {
     io.sockets.emit('state', players);
+    //io.sockets.emit('',)
     console.clear();
     console.log(players)
   }, 1000 / 60);
@@ -117,8 +128,8 @@ function configModeration(commands, rankjson, permissions){
 module.exports = {initSetup,initPlayer};
 
 
-initSetup(8000,"./lobby.html","./script.js")
+//initSetup(8000,"./lobby.html","./script.js")
 
-initPlayer();
+//initPlayer();
 
 

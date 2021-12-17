@@ -1,41 +1,41 @@
 {
-  "Jump": // W/[UP] 
+  "Jump":
   {
     "keycodes":[87,38],
     "factor":5,
     "class":"movement"
   },
-  "Down": // S/[DOWN]
+  "Down":
   {
     "keycodes":[83,40],
     "factor":5,
     "class":"movement"
   },
-  "Left": // A/[LEFT]
+  "Left":
   {
     "keycodes":[65,37],
     "factor":5,
     "class":"movement"
   },
-  "Right": // D/[RIGHT]
+  "Right":
   {
     "keycodes":[68,39],
     "factor":5,
     "class":"movement"
   },
-  "Fight": // [SPACE],Click
+  "Fight":
   {
     "keycodes":[32],
     "factor":5,
     "class":"Interaction"
   },
-  "Sprint": //[SHIFT]
+  "Sprint":
   {
     "keycodes":[16],
     "factor":5,
     "class":"Interaction"
   },
-  "Use": //E
+  "Use":
   {
     "keycodes":[69],
     "factor":5,

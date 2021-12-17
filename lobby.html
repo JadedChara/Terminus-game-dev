@@ -1,5 +1,5 @@
 <html>
-<body style="background-color:black; overflow:hidden;">
+<body style="background-color:black; ">
   <head>
     <title>Terminus Beta Test 0.1.3</title>
     
@@ -8,19 +8,20 @@
     <script src="./index.js"></script>
     <style>
       .titletext {
-        color:white;
+        color:yellow;
         font-weight:bold;
+        font-style:italic;
         font-size:40px;
         font-family:Papyrus,Arial;
       }
       .instructions {
-        color: #9A0000;
+        color: #aa00ff;
         font-weight: bold;
         font-size: 12px;
         margin-top: 20px;
         margin-left: 20px;
-        background-color:#DDDDDD;
-        border: 5px #DDDDDD;
+        background-color: white;
+        border: 5px white;
         border-radius: 5px;
         padding: 5px;
         width:500px;
@@ -32,21 +33,21 @@
       }
       button {
         background-color: white;
-        border: 2px solid red;
-        color: red;
+        border: 2px solid-purple;
+        color: #aa00ff;
         font-size: 12px;
         font-weight: bold;
         font-family:Arial;
       }
       .game {
-        display: initial;
+        display: none;
       }
       .login {
-        display: none;
+        display: initial;
         align: center;
       }
       .logintab {
-        background-color: grey;
+        background-color: #aa00ff;
         margin-top:auto;
         margin-bottom:auto;
         align: center;
@@ -60,8 +61,8 @@
       .joinbutton {
         transition-duration:0.4s;
         cursor:pointer;
-        background-color:#900000;
-        color: white;
+        background-color:white;
+        color: black;
         border: 5px #900000;
         font-weight:bold;
         letter-spacing: 7px;
@@ -72,13 +73,13 @@
         border-radius: 5px;
       }
       .joinbutton:hover {
-        background-color:#DDDDDD;
-        color:#900000;
+        background-color:yellow;
+        color:#aa00ff;
         border:5px #DDDDDD;
       }
       .splashtext {
         margin-top:10px;
-        color:#900000;
+        color:white;
         font-size:32px;
         font-family:Arial;
       }
@@ -89,17 +90,17 @@
         placeholder:"hello";
       }
       .msgBtn{
-        background-color:#900000;
+        background-color:#aa00ff;
         color:white;
         font-weight:bold;
         font-size:18px;
-        border:5px #900000;
+        border:5px purple;
         border-radius:5px;
         transition-duration:0.4s;
       }
       .msgBtn:hover{
-        background-color:#DDDDDD;
-        color:#900000;
+        background-color:yellow;
+        color:black;
         border: 5px #DDDDDD;
         border-radius: 5px;
       }
@@ -126,7 +127,7 @@
       <table>
         <tr>
           <th class="playerzone" border="5px solid black">
-            <canvas id="playermap" height="500px" width="800px" border="5px solid black" border-style="outset"></canvas>
+            <canvas id="playermap" height="400px" width="800px" border="5px solid black" border-style="outset"></canvas>
           </th>
           <th class="chatlog">
             <canvas id="chatlog"></canvas>

@@ -1,66 +1,68 @@
-
+//Necessity!!
 var socket = io();
 
+//=====================
+//|| Config Samples  ||
+//=====================
 
-var exampleStart={
-  x:400, // 1/2 of map width
-  y:250, // 1/2 of map height
-  status:"idle", //"idle","dead","alive"
-  rot:0,
-  HP:100,
-  msg:"",
-  rank:1,
-  hitzone:undefined,
+//If a dev uses the login system, then password is a required field. It's recommended that this stuff gets stored via JSON styling, for easy access.
 
-
-}
-
-//chat can be either 'false', or JSON info.
-function clientConnect(start,button,txtInput,chatState){
-  var userdata = start;
-  
-  //
-
-  socket.emit('new player',userdata);
-  if(chatState !== false ){
-
-    //Once the document is fully loaded, then we start calling player interactions. I'm working away on this one. Login screens are basically mandatory in order to preserve server integrity.
-    document.addEventListener("DOMContentLoaded",function(){
-      
-      //Sending messages by clicking
-      var msgBtn = document.getElementById(button);
-      msgBtn.addEventListener("click",function(event){
-
-        socket.emit("msgClick",document.getElementById(txtInput).value);
-        document.getElementById(txtInput).value="";
-
-      })
-
-        
-    })
+document.addEventListener("DOMContentLoaded",function(){
+  var loginConfig = {
+    //inputs needed for transmission
+    name:document.getElementById("nameinput").value,
+    //password:document.getElementById("passwordinput")
   }
-}
+  //All page resources needed for initialization
+  var resourceMap = {
+    //login elements
+    loginBtn:document.getElementById(""),
+    registerBtn:document.getElementById(""),
+    guestBtn:document.getElementById("JoinBtn"),
+    //divs
+    homepage:document.getElementById("loginScreen"),
+    menupage:"",
+    gamepage:document.getElementById("gamewindow"),
+  }
+  //starting values
+  resourceMap.homepage.display = "initial";
+  resourceMap.menupage.display = "none";
+  resourceMap.gamepage.display = "none";
+  //game info
+  var gameConfig = {
+    map = document.getElementById("playermap"),
+    chatBox = document.getElementById("chatlog"),
+    msgBtn = document.getElementById("sendmessage"),
+    //helpBtn = document.getElementById("")
+  }
+  //kickoff!
+  //loginInit(loginConfig, resourceMap, false);
+})
 
-
-
-//================================
-//||  Actual Front-end Example  ||
-//================================
-clientConnect(exampleStart,"sendmessage","msgContent",true);
-
-
-
-//=============
-//||  TO DO  ||
-//=============
-//Extensive framework for supporting movement, two types of position mapping(Scrolling, static map), two types of rendering(2D,3D), and account saving systems.
-
-
-//loginCheck(boolUse)
-//Pings back whether a user has selected 
-
-//dataRetrieve(username,password)
-//Once logged in, the system will dynamically update your data in the Archive for easy continuation
+//=================
+//||  Functions  ||
+//=================
 
 //
+function loginInit(loginConfig,resourceMap,accountBoolean){
+  if (accountBoolean == false){
+    resourceMap.homepage.display = "none";
+    if(resourceMap.menupage == ""){
+      resourceMap.gamepage.display = "initial";
+      gameInit(loginConfig);
+    } else{
+      resourceMap.menupage.display = "initial";
+    }
+  }if (accountBoolean == true){
+    socket.emit("dbPull",loginConfig);
+  }else {
+    console.log("Improper usage of loginInit");
+    process.exit();
+  }
+};
+
 //
+function gameInit(){};
+
+//
+function clientInit(){};
