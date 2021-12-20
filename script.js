@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded",function(){
     //helpBtn = document.getElementById("")
   }
   //kickoff!
-  //loginInit(loginConfig, resourceMap, false);
+  loginInit(loginConfig, resourceMap, false);
 })
 
 //=================
