@@ -49,7 +49,7 @@ function loginInit(loginConfig,resourceMap,accountBoolean){
     resourceMap.homepage.display = "none";
     if(resourceMap.menupage == ""){
       resourceMap.gamepage.display = "initial";
-      gameInit(loginConfig);
+      gameInit(loginConfig,gameConfig);
     } else{
       resourceMap.menupage.display = "initial";
     }
@@ -62,7 +62,7 @@ function loginInit(loginConfig,resourceMap,accountBoolean){
 };
 
 //
-function gameInit(){};
+function gameInit(loginConfig,gameConfig){};
 
 //
 function clientInit(){};
