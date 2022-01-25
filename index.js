@@ -72,7 +72,7 @@ function initSetup(port, html, script){
   fs.writeFile("./Database/Members/archive.json","{}", function(){})
 
   app.set('port', port);
-  app.use(('/static'), express.static(("./"+'/static')))
+  app.use(('/static'), express.static("./static"))
   app.get('/', function(request, response) {
     response.sendFile(html,{root:("./")});
   });
@@ -92,9 +92,9 @@ function initPlayer(){
     socket.on('new player', function(reqForm){
       var userdata = {
         name:reqForm,
-        x:400, // 1/2 of map width
-        y:250, // 1/2 of map height
-        status:"idle", //"idle","dead","alive"
+        x:400, 
+        y:250, 
+        status:"idle",
         rot:0,
         HP:100,
         msg:"",
