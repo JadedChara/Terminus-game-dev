@@ -110,9 +110,9 @@ function initPlayer(){
   });
   setInterval(function() {
     io.sockets.emit('state', players);
-    //io.sockets.emit('',)
+    io.sockets.emit('playerlog',players)
     console.clear();
-    console.log(players)
+    console.log(players);
   }, 1000 / 60);
 
   
