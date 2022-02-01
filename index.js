@@ -47,7 +47,11 @@ function initSetup(port, html, script){
   })
 
   fs.readFile(script, 'utf8', function(err, data){
-    fs.writeFile('./static/' + script,data,function(){})
+    fs.writeFile('./static/' + script,data,function(){
+      if(err){
+        return console.error(err);
+      }
+    })
   });
   fs.mkdir("./Database",{recursive:true}, (err) => {
     if(err){
@@ -86,12 +90,12 @@ function initPlayer(){
   players={};
   io.on('connection', function(socket) {
     socket.on("disconnect", () => {
-      
       delete players[socket.id];
     });
-    socket.on('new player', function(reqForm){
+    socket.on('new player', function(reqform){
       var userdata = {
-        name:reqForm,
+        name:reqform.name,
+        pass:reqform.pass,
         x:400, 
         y:250, 
         status:"idle",
@@ -100,6 +104,10 @@ function initPlayer(){
         msg:"",
         rank:1,
         hitzone:undefined,
+        score:0
+      }
+      if (userdata.name == process.env.ADMINNAME && userdata.pass == process.env.ADMINPASS){
+        userdata.rank = 2;
       }
       players[socket.id] = userdata;
     })
@@ -110,9 +118,8 @@ function initPlayer(){
   });
   setInterval(function() {
     io.sockets.emit('state', players);
-    io.sockets.emit('playerlog',players)
-    console.clear();
-    console.log(players);
+    //console.clear();
+    //console.log(players);
   }, 1000 / 60);
 
   
@@ -132,4 +139,8 @@ initSetup(8000,"./lobby.html","./script.js")
 
 initPlayer();
 
+//const socketALT = require("socket.io-client")("https://Terminus-game-dev-1.nightstrike.repl.co");
 
+//socketALT.on("connect_error", (err) => {
+//  console.log(`connect_error due to ${err.message}`);
+//});
