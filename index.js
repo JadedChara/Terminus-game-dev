@@ -38,83 +38,83 @@ var io = socketIO(server);
 //
 //
 
-function initSetup(port, html, script){
-  
-  fs.mkdir ("./static",{recursive:true}, (err) => {
-    if (err){
+function initSetup(port, html, script) {
+
+  fs.mkdir("./static", { recursive: true }, (err) => {
+    if (err) {
       return console.error(err);
     }
   })
 
-  fs.readFile(script, 'utf8', function(err, data){
-    fs.writeFile('./static/' + script,data,function(){
-      if(err){
+  fs.readFile(script, 'utf8', function(err, data) {
+    fs.writeFile('./static/' + script, data, function() {
+      if (err) {
         return console.error(err);
       }
     })
   });
-  fs.mkdir("./Database",{recursive:true}, (err) => {
-    if(err){
+  fs.mkdir("./Database", { recursive: true }, (err) => {
+    if (err) {
       return console.error(err);
     }
   })
-  fs.mkdir("./Database/World",{recursive:true}, (err) => {
-    if(err){
+  fs.mkdir("./Database/World", { recursive: true }, (err) => {
+    if (err) {
       return console.error(err);
     }
   })
-  fs.mkdir("./Database/Members",{recursive:true}, (err) => {
-    if(err){
+  fs.mkdir("./Database/Members", { recursive: true }, (err) => {
+    if (err) {
       return console.error(err);
     }
   })
-  fs.mkdir("./Database/Backups",{recursive:true}, (err) => {
-    if(err){
+  fs.mkdir("./Database/Backups", { recursive: true }, (err) => {
+    if (err) {
       return console.error(err);
     }
   })
-  fs.writeFile("./Database/Members/archive.json","{}", function(){})
+  fs.writeFile("./Database/Members/archive.json", "{}", function() { })
 
   app.set('port', port);
   app.use(('/static'), express.static("./static"))
   app.get('/', function(request, response) {
-    response.sendFile(html,{root:("./")});
+    response.sendFile(html, { root: ("./") });
   });
   server.listen(port, function() {
-    console.log('Starting server on port:'+ port);
+    console.log('Starting server on port:' + port);
   });
 }
 
-var players={};
-function initPlayer(){
-  players={};
+var players = {};
+function initPlayer() {
+  players = {};
   io.on('connection', function(socket) {
     socket.on("disconnect", () => {
       delete players[socket.id];
     });
-    socket.on('new player', function(reqform){
+    socket.on('new player', function(reqform) {
       var userdata = {
-        name:reqform.name,
-        pass:reqform.pass,
-        x:400, 
-        y:250, 
-        status:"idle",
-        rot:0,
-        HP:100,
-        msg:"",
-        rank:1,
-        hitzone:undefined,
-        score:0
+        name: reqform.name,
+        pass: reqform.pass,
+        x: 400,
+        y: 250,
+        status: "idle",
+        rot: 0,
+        HP: 100,
+        msg: "",
+        rank: 1,
+        hitzone: undefined,
+        score: 0
       }
-      if (userdata.name == process.env.ADMINNAME && userdata.pass == process.env.ADMINPASS){
+      if (userdata.name == process.env.ADMINNAME && userdata.pass == process.env.ADMINPASS) {
         userdata.rank = 2;
       }
       players[socket.id] = userdata;
     })
-    socket.on('msgClick', function(msgr){
+    socket.on('msgClick', function(msgr) {
       players[socket.id].msg = msgr;
     })
-    
+
   });
   setInterval(function() {
     io.sockets.emit('state', players);
@@ -122,25 +122,19 @@ function initPlayer(){
     //console.log(players);
   }, 1000 / 60);
 
-  
-  
+
+
   //
 }
 
 //initServer(8000, "voidtests","voidtest.html","./lobbyformat.html");
 
-function configModeration(commands, rankjson, permissions){
+function configModeration(commands, rankjson, permissions) {
   //
 }
-module.exports = {initSetup,initPlayer};
+module.exports = { initSetup, initPlayer };
 
 
-initSetup(8000,"./lobby.html","./script.js")
+initSetup(8000, "./lobby.html", "./script.js")
 
 initPlayer();
-
-//const socketALT = require("socket.io-client")("https://Terminus-game-dev-1.nightstrike.repl.co");
-
-//socketALT.on("connect_error", (err) => {
-//  console.log(`connect_error due to ${err.message}`);
-//});
