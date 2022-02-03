@@ -88,11 +88,20 @@ function initSetup(port, html, script) {
 var players = {};
 function initPlayer() {
   players = {};
+
+  //Connection handling
   io.on('connection', function(socket) {
+
+    //Disconnect handling
+    //Clears player info from player json
     socket.on("disconnect", () => {
       delete players[socket.id];
     });
+
+    //New Player handling
     socket.on('new player', function(reqform) {
+      
+      //default data for player
       var userdata = {
         name: reqform.name,
         pass: reqform.pass,
@@ -104,22 +113,37 @@ function initPlayer() {
         msg: "",
         rank: 1,
         hitzone: undefined,
-        score: 0
+        score: 0,
+        movement:{}
       }
+
+      //Admin check using default environmentals
       if (userdata.name == process.env.ADMINNAME && userdata.pass == process.env.ADMINPASS) {
         userdata.rank = 2;
       }
+
+      //initializes player instance finally
       players[socket.id] = userdata;
+
+      //Movement handler. Tad buggy.
+      socket.on('movement', function(movement){
+        //Handlers WIP
+      })
+      
     })
+
+    //Message handler. Not yet functional
     socket.on('msgClick', function(msgr) {
       players[socket.id].msg = msgr;
     })
 
   });
+
+  //tick management
   setInterval(function() {
     io.sockets.emit('state', players);
-    //console.clear();
-    //console.log(players);
+    console.clear();
+    console.log(players);
   }, 1000 / 60);
 
 

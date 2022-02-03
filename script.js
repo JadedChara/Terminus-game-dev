@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded",function(){
     gamewindow:document.getElementById("gamewindow")
   };
 //Literally require the DOM handler. Argh.
-  function ClientInit(resourcemap){
+  function ClientInit(resourcemap, movedata){
     var reqform = {
       name:"Guest",
       pass:""
@@ -61,14 +61,56 @@ document.addEventListener("DOMContentLoaded",function(){
       socket.emit("new player", reqform);
       resourcemap.loginscreen.style.display = "none";
       resourcemap.gamewindow.style.display = "initial";
+      resourcemap.playerlog.addEventListener("keydown", function(event){
+      switch (event.keycode){
+        case 87:
+          movedata.up = true;
+          document.getElementById("titletext").value="UP";
+          break;
+        case 83:
+          movedata.down = true;
+          document.getElementById("titletext").value="DOWN";
+          break;
+        case 65:
+          movedata.left = true;
+          document.getElementById("titletext").value="LEFT";
+          break;
+        case 68:
+          movedata.right= true;
+          document.getElementById("titletext").value="RIGHT";
+          break;
+      }
+    })
+      resourcemap.playerlog.addEventListener("keyup",function(event){
+      switch (event.keycode){
+        case 87:
+          movedata.up = false;
+          document.getElementById("titletext").value="";
+          break;
+        case 83:
+          movedata.down = false;
+          document.getElementById("titletext").value="";
+          break;
+        case 65:
+          movedata.left = false;
+          document.getElementById("titletext").value="";
+          break;
+        case 68:
+          movedata.right= false;
+          document.getElementById("titletext").value="";
+          break;
+      }
+    })
+      setInterval(function(){
+        socket.emit("movement", movedata)
+      },100)
     })
     //resourcemap.passinput.addEventListener("keypress", function(){
       //
     //})
     //Placeholder notation . . .
     var logcontext = resourcemap.playerlog.getContext("2d");
-    //logcontext.addEventListener("keydown",function(event){})
-    //logcontext.addEventListener("keyup",function(event){})
+    
   
   //resourcemap.playermap.drawImage(document.getElementById("insignia"), 15, 15)
     socket.on("state",function(players){
@@ -89,10 +131,7 @@ document.addEventListener("DOMContentLoaded",function(){
         i++;
       }
     })
-    setInterval(function(){
-      socket.emit("movement",movedata);
-    },100)
   }
-  ClientInit(resourcemap);
+  ClientInit(resourcemap, movement);
 })
 
