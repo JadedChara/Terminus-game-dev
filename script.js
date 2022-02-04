@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded",function(){
     passinput:document.getElementById("passinput"),
     playerlog:document.getElementById("playerlog"),
     
-    playermap:document.getElementById("playermap").getContext("2d"),
+    playermap:document.getElementById("playermap"),
     chatlog:document.getElementById("chatlog"),
     loginscreen:document.getElementById("loginScreen"),
     gamewindow:document.getElementById("gamewindow")
@@ -50,6 +50,41 @@ document.addEventListener("DOMContentLoaded",function(){
       name:"Guest",
       pass:""
     };
+    var transmitData = movedata;
+
+    document.addEventListener("keydown", function(event){
+      switch (event.keycode){
+        case 87:
+          transmitData.up = true;
+          break;
+        case 83:
+          transmitData.down = true;
+          break;
+        case 65:
+          transmitData.left = true;
+          break;
+        case 68:
+          transmitData.right= true;
+          break;
+      }
+    })
+    document.addEventListener("keyup", function(event){
+      switch (event.keycode){
+        case 87:
+          transmitData.up = false;
+          break;
+        case 83:
+          transmitData.down = false;
+          break;
+        case 65:
+          transmitData.left = false;
+          break;
+        case 68:
+          transmitData.right= false;
+          break;
+      }
+    })
+    
     resourcemap.connectBtn.addEventListener("click", function(){
       if (resourcemap.nameinput.value == ""){
         reqform.name = "Guest";
@@ -59,50 +94,12 @@ document.addEventListener("DOMContentLoaded",function(){
         reqform.pass = resourcemap.passinput.value;
       }
       socket.emit("new player", reqform);
-      resourcemap.loginscreen.style.display = "none";
-      resourcemap.gamewindow.style.display = "initial";
-      resourcemap.playerlog.addEventListener("keydown", function(event){
-      switch (event.keycode){
-        case 87:
-          movedata.up = true;
-          document.getElementById("titletext").value="UP";
-          break;
-        case 83:
-          movedata.down = true;
-          document.getElementById("titletext").value="DOWN";
-          break;
-        case 65:
-          movedata.left = true;
-          document.getElementById("titletext").value="LEFT";
-          break;
-        case 68:
-          movedata.right= true;
-          document.getElementById("titletext").value="RIGHT";
-          break;
-      }
-    })
-      resourcemap.playerlog.addEventListener("keyup",function(event){
-      switch (event.keycode){
-        case 87:
-          movedata.up = false;
-          document.getElementById("titletext").value="";
-          break;
-        case 83:
-          movedata.down = false;
-          document.getElementById("titletext").value="";
-          break;
-        case 65:
-          movedata.left = false;
-          document.getElementById("titletext").value="";
-          break;
-        case 68:
-          movedata.right= false;
-          document.getElementById("titletext").value="";
-          break;
-      }
-    })
+      resourcemap.loginscreen.style = "display:none";
+      resourcemap.gamewindow.style = "display:initial";
+
+
       setInterval(function(){
-        socket.emit("movement", movedata)
+        socket.emit("movement", transmitData)
       },100)
     })
     //resourcemap.passinput.addEventListener("keypress", function(){

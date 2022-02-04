@@ -127,7 +127,7 @@ function initPlayer() {
 
       //Movement handler. Tad buggy.
       socket.on('movement', function(movement){
-        //Handlers WIP
+        players[socket.id].movement = movement;
       })
       
     })
