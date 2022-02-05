@@ -46,14 +46,18 @@ document.addEventListener("DOMContentLoaded",function(){
   };
 //Literally require the DOM handler. Argh.
   function ClientInit(resourcemap, movedata){
+    //Client data defaults
     var reqform = {
       name:"Guest",
       pass:""
     };
+
+    //Attempting to sidestep the bug, but failing.
     var transmitData = movedata;
 
+    //keydown listener. DOES NOT WORK
     document.addEventListener("keydown", function(event){
-      switch (event.keycode){
+      switch (event.keyCode){
         case 87:
           transmitData.up = true;
           break;
@@ -68,8 +72,10 @@ document.addEventListener("DOMContentLoaded",function(){
           break;
       }
     })
+
+    //keyup listener. DOES NOT WORK
     document.addEventListener("keyup", function(event){
-      switch (event.keycode){
+      switch (event.keyCode){
         case 87:
           transmitData.up = false;
           break;
@@ -85,6 +91,7 @@ document.addEventListener("DOMContentLoaded",function(){
       }
     })
     
+    //Click listener. Initializes connection.
     resourcemap.connectBtn.addEventListener("click", function(){
       if (resourcemap.nameinput.value == ""){
         reqform.name = "Guest";
