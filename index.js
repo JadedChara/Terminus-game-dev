@@ -2,6 +2,10 @@
 //||    IMPORTS    ||
 //===================
 
+//String coloring for server-side
+//Source: https://github.com/chalk/chalk
+var chalk = require('chalk');
+
 //web framework
 //Source: https://github.com/expressjs/express
 var express = require('express');
@@ -33,6 +37,11 @@ var server = http.Server(app);
 //Sets up the multiplayer feature with socketIO
 var io = socketIO(server);
 
+io.attach(server, {
+  pingInterval:10000,
+  pingTimeout:5000,
+  cookie:false
+})
 
 //
 //
@@ -81,7 +90,10 @@ function initSetup(port, html, script) {
     response.sendFile(html, { root: ("./") });
   });
   server.listen(port, function() {
-    console.log('Starting server on port:' + port);
+    console.clear();
+    console.log();
+    const keepalive = require("./keepalive.js");
+    keepalive.init(port);
   });
 }
 
@@ -138,12 +150,10 @@ function initPlayer() {
     })
 
   });
-
+  
   //tick management
   setInterval(function() {
     io.sockets.emit('state', players);
-    console.clear();
-    console.log(players);
   }, 1000 / 60);
 
 
