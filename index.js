@@ -2,6 +2,10 @@
 //||    IMPORTS    ||
 //===================
 
+//Encryption/Decryption. Whoo!
+//https://github.com/ricmoo/aes-js
+var aesjs = require('aes-js');
+
 //String coloring for server-side
 //Source: https://github.com/chalk/chalk
 var chalk = require('chalk');

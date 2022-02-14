@@ -1,2 +1,8 @@
 HEAVILY REWORKING EVERYTHING!
 again.
+
+terminus.initSetup(<Port>,<HTML script>, <Client script>);
+terminus.initPlayer();
+terminus.game.ClientInit();
+terminus.obfuscate.conceal(<Readable Pass>);
+terminus.obfuscate.reveal(<Encrypted Pass>);
