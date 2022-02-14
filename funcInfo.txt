@@ -1,8 +1,18 @@
 HEAVILY REWORKING EVERYTHING!
 again.
 
+[Initial calling stuff.]
+
 terminus.initSetup(<Port>,<HTML script>, <Client script>);
 terminus.initPlayer();
-terminus.game.ClientInit();
+
+['game' will be defined in index.js, so it can be called just by requiring `terminus` and then calling the function]
+terminus.game.ClientInit(<resourcemap>,<movement>);
+
+[Cheeky password hiding stuff. Supposedly secure enough, so...]
 terminus.obfuscate.conceal(<Readable Pass>);
 terminus.obfuscate.reveal(<Encrypted Pass>);
+
+[entity handlers. Again, all functions will be noted in the index.js for this repo. *Tired noises*]
+terminus.entity.NPC(<spriteSheet>,<spawnInfo>);
+terminus.entity.Client(<spawnInfo>);
