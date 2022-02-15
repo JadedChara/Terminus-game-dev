@@ -115,31 +115,43 @@ function initPlayer() {
     });
 
     //New Player handling
-    socket.on('new player', function(reqform) {
+    socket.on('new player', function(reqform,status) {
       
       //default data for player
+      
       var userdata = {
         name: reqform.name,
         pass: reqform.pass,
         x: 400,
         y: 250,
+        z: 0,
         status: "idle",
         rot: 0,
         HP: 100,
         msg: "",
         rank: 1,
-        hitzone: undefined,
+        hitzone: {},
         score: 0,
         movement:{}
       }
-
+      //Not yet implemented, but this will encrypt the data, providing a minor extra layer of security. Considering this is a game, it's not a major issue, honestly.
+      var token=[];
+      for(var i = 0; i<32; i++){
+        token.push(Math.floor(Math.random()*100));
+      }
+      
+      fs.readFile("./Members/archive.json",'utf8', function(err,data){
+        //if bad pass/name, socket.emit incorrect data, plus which is incorrect.
+      })
       //Admin check using default environmentals
       if (userdata.name == process.env.ADMINNAME && userdata.pass == process.env.ADMINPASS) {
         userdata.rank = 2;
       }
 
       //initializes player instance finally
-      players[socket.id] = userdata;
+      if(status == true){
+        players[socket.id] = userdata;
+      }
 
       //Movement handler. Tad buggy.
       socket.on('movement', function(movement){

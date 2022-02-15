@@ -48,6 +48,7 @@
     "socket.io-client": "^4.4.1",
     "socket.io-parser": "^4.0.4",
     "statuses": "^1.5.0",
+    "terminus-game-dev-1": "^1.2.8",
     "type-is": "^1.6.18",
     "unpipe": "^1.0.0",
     "utils-merge": "^1.0.1",

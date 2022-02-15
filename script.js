@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded",function(){
     //resourcemap.passinput.addEventListener("keypress", function(){
       //
     //})
-    //Placeholder notation . . .
+    //Debugging purposes. Will not be packed in the final version explicitly. You need to specify the debugMode
     var logcontext = resourcemap.playerlog.getContext("2d");
     
   
