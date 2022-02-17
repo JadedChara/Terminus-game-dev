@@ -1,3 +1,5 @@
+[![Npm package version](https://badgen.net/npm/v/express)](https://npmjs.com/package/express)
+
 # Terminus Industries Game API
 Created by: [Nightstrike & The TI Crew](https://www.nightstrike.wixsite.com/terminus-industries)!
 
