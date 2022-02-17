@@ -1,5 +1,9 @@
 [![GitHub version](https://badge.fury.io/gh/CharaHarimata%2Fterminus-game-dev.svg)](https://badge.fury.io/gh/CharaHarimata%2Fterminus-game-dev)
 [![npm version](https://badge.fury.io/js/terminus-game-dev-1.svg)](https://badge.fury.io/js/terminus-game-dev-1)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+[![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
+
+
 
 # Terminus Industries Game API
 Created by: [Nightstrike & The TI Crew](https://www.nightstrike.wixsite.com/terminus-industries)!
@@ -155,14 +159,17 @@ Dependencies:
 
 Primary IDE Used In Development:
 
-![Repl.it](https://img.shields.io/badge/Repl.it-%230D101E.svg?style=for-the-badge&logo=replit&logoColor=white)
+[![Repl.it](https://img.shields.io/badge/Repl.it-%230D101E.svg?style=for-the-badge&logo=replit&logoColor=white)](https://www.repl.it)
 
 Upcoming:
 
-![Threejs](https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white)
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+[![Threejs](https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white)]()
+[![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)]()
 
 Recommended OS:
 
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 ![Chrome OS](https://img.shields.io/badge/chrome%20os-3d89fc?style=for-the-badge&logo=google%20chrome&logoColor=white)
+
+----
+[![Attribution-NonCommercial-ShareAlike](https://licensebuttons.net/i/l/by-nc-sa/eeeeee/ff/00/ff/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/2.0/)
