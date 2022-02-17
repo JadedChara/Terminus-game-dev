@@ -1,4 +1,5 @@
-[![Npm package version](https://badgen.net/npm/v/express)](https://npmjs.com/package/express)
+[![GitHub version](https://badge.fury.io/gh/CharaHarimata%2Fterminus-game-dev.svg)](https://badge.fury.io/gh/CharaHarimata%2Fterminus-game-dev)
+[![npm version](https://badge.fury.io/js/terminus-game-dev-1.svg)](https://badge.fury.io/js/terminus-game-dev-1)
 
 # Terminus Industries Game API
 Created by: [Nightstrike & The TI Crew](https://www.nightstrike.wixsite.com/terminus-industries)!
