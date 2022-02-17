@@ -1,3 +1,5 @@
+const THREE = require('three');
+
 //==========================
 //|| Color Randomization  ||
 //==========================
@@ -32,3 +34,9 @@ function Sprite2D(userdata,ctrlPoint){
   //Bottom of sprite: Side-scroller
   //Middle of sprite: top-view
 }
+
+function View3D(pers,model){
+  //
+}
+
+module.exports = {Sprite2D, View3D}
