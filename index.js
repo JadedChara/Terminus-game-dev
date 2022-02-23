@@ -35,9 +35,11 @@ var socketIO = require('socket.io');
 //Built-in utility
 var fs = require('fs');
 
+
 //================================
 //||    PRIMARY SERVER SETUP    ||
 //================================
+
 
 //Calls the main express function.
 var app = express();
@@ -54,6 +56,15 @@ io.attach(server, {
   pingTimeout:5000,
   cookie:false
 })
+
+//First of the class system
+var moveMode = require("./class/movement.js");
+
+
+//====================
+//|| CORE FUNCTIONS ||
+//====================
+
 
 //Key function for setting up. This will be further broken up and specified later.
 function initSetup(port, html, script) {
@@ -107,17 +118,21 @@ function initSetup(port, html, script) {
 
   //Configures express app. Uses `./` as the root name because DIRNAME_ would NOT work.
   app.set('port', port);
-  app.use(('/static'), express.static("./static"))
+  app.use(('/static'), express.static("./static"));
+  app.use(('/class'),express.static("./static"));
   app.get('/', function(request, response) {
     response.sendFile(html, { root: ("./") });
   });
+  app.get('/movement.js', function(request, response){
+    response.sendFile(__dirname+"/class/movement.js");
+  })
 
   //Initializes server instance, and adds a fancy ping bar. Will add TPS and other stats eventually.
   server.listen(port, function() {
     console.clear();
     console.log();
     const keepalive = require("./keepalive.js");
-    keepalive.init(port);
+    keepalive.init(port,players);
   });
 }
 
@@ -139,12 +154,13 @@ function initPlayer() {
     });
 
     //New Player handling
-    socket.on('new player', function(reqform,status) {
+    socket.on('new player', function(reqform) {
       
       //default data for player
       var userdata = {
         name: reqform.name,
         pass: reqform.pass,
+        ping:0,
         x: 400,
         y: 250,
         z: 0,
@@ -174,17 +190,30 @@ function initPlayer() {
       }
 
       //initializes player instance finally!
-      if(status == true){
+      //if(status == true){
         players[socket.id] = userdata;
-      }
-
+      //}
+    
       //Movement handler. Tad buggy.
       socket.on('movement', function(movement){
         players[socket.id].movement = movement;
+        if(movement.left){
+          players[socket.id].x -= 5;
+        }if(movement.right){
+          players[socket.id].x += 5;
+        }if(movement.up){
+          players[socket.id].y -= 5;
+        }if(movement.down){
+          players[socket.id].y +=5;
+        }
       })
-      
-    })
+    }) 
 
+    //
+    socket.on('latency',function(ms){
+      players[socket.id].ping = (Date.now()-ms);
+    })
+    
     //Message handler. Not yet functional
     socket.on('msgClick', function(msgr) {
       players[socket.id].msg = msgr;
@@ -195,6 +224,8 @@ function initPlayer() {
   //tick management. Surprisingly not laggy, even though this is all being constructed via Repl.it.
   setInterval(function() {
     io.sockets.emit('state', players);
+    //console.clear();
+    //console.log(players);
   }, 1000 / 60);
   
   //Due for additional changes at some point.
@@ -204,6 +235,12 @@ function initPlayer() {
 function configModeration(commands, rankjson, permissions) {
   //
 }
+
+
+//==================================
+//|| FINAL PACKAGE CONFIG/TESTING ||
+//==================================
+
 
 //Defines main package functions!
 module.exports = { initSetup, initPlayer };

@@ -1,3 +1,5 @@
+console.log("Movement class initialized.");
+
 function sideScroller(){
   //
 }
@@ -5,7 +7,39 @@ function sideScroller(){
 
 //
 function topView(){
-  //
+  alert("movement!");
+  document.addEventListener("keydown", function(event){
+    switch (event.keyCode){
+      case 87:
+        transmitData.up = true;
+        break;
+      case 83:
+        transmitData.down = true;
+        break;
+      case 65:
+        transmitData.left = true;
+        break;
+      case 68:
+        transmitData.right= true;
+        break;
+    }
+  })
+  document.addEventListener("keyup", function(event){
+    switch (event.keyCode){
+      case 87:
+        transmitData.up = false;
+        break;
+      case 83:
+        transmitData.down = false;
+        break;
+      case 65:
+        transmitData.left = false;
+        break;
+      case 68:
+        transmitData.right= false;
+        break;
+    }
+  })
 }
 
 
@@ -18,3 +52,5 @@ function topView(){
 function animate2D(spriteSheet, frameNum, rowNum){
   //
 }
+
+module.exports={topView}

@@ -1,11 +1,15 @@
-//Init
+//================================
+//|| PRIMARY DECLARATION/CONFIG ||
+//================================
+
+//init
 var socket = io();
+
 var movement = {
   up:false,
   down:false,
   left:false,
-  right:false,
-  //sprint:false
+  right:false
 }
 
 var controls = {
@@ -27,12 +31,12 @@ var controls = {
   },
 }
 
-//============================
-//||  Clientside Gibberish  ||
-//============================
+//=========================
+//||  CLIENTSIDE CONFIG  ||
+//=========================
 
 document.addEventListener("DOMContentLoaded",function(){
-  
+  //var moveMode = require("./movement.js");
   var resourcemap = {
     connectBtn:document.getElementById("joinBtn"),
     nameinput:document.getElementById("nameinput"),
@@ -53,22 +57,21 @@ document.addEventListener("DOMContentLoaded",function(){
     };
 
     //Attempting to sidestep the bug, but failing.
-    var transmitData = movedata;
 
     //keydown listener. DOES NOT WORK
     document.addEventListener("keydown", function(event){
       switch (event.keyCode){
         case 87:
-          transmitData.up = true;
+          movedata.up = true;
           break;
         case 83:
-          transmitData.down = true;
+          movedata.down = true;
           break;
         case 65:
-          transmitData.left = true;
+          movedata.left = true;
           break;
         case 68:
-          transmitData.right= true;
+          movedata.right= true;
           break;
       }
     })
@@ -77,24 +80,24 @@ document.addEventListener("DOMContentLoaded",function(){
     document.addEventListener("keyup", function(event){
       switch (event.keyCode){
         case 87:
-          transmitData.up = false;
+          movedata.up = false;
           break;
         case 83:
-          transmitData.down = false;
+          movedata.down = false;
           break;
         case 65:
-          transmitData.left = false;
+          movedata.left = false;
           break;
         case 68:
-          transmitData.right= false;
+          movedata.right = false;
           break;
       }
     })
-    
+    //moveMode.topView(movedata);
     //Click listener. Initializes connection.
     resourcemap.connectBtn.addEventListener("click", function(){
       if (resourcemap.nameinput.value == ""){
-        reqform.name = "Guest";
+        reqform.name = "Guest " + Math.floor(Math.random()*1000);
         reqform.pass = "";
       } else{
         reqform.name = resourcemap.nameinput.value;
@@ -104,19 +107,13 @@ document.addEventListener("DOMContentLoaded",function(){
       resourcemap.loginscreen.style = "display:none";
       resourcemap.gamewindow.style = "display:initial";
 
-
       setInterval(function(){
-        socket.emit("movement", transmitData)
+        socket.emit("movement", movedata);
+        socket.emit("latency", Date.now());
       },100)
-    })
-    //resourcemap.passinput.addEventListener("keypress", function(){
-      //
-    //})
+    
     //Debugging purposes. Will not be packed in the final version explicitly. You need to specify the debugMode
     var logcontext = resourcemap.playerlog.getContext("2d");
-    
-  
-  //resourcemap.playermap.drawImage(document.getElementById("insignia"), 15, 15)
     socket.on("state",function(players){
       logcontext.clearRect(0,0,resourcemap.playerlog.width, resourcemap.playerlog.height)
       var i = 0;
@@ -128,14 +125,36 @@ document.addEventListener("DOMContentLoaded",function(){
           logcontext.fillStyle = "grey";
         }
         logcontext.textalign = "left";
-        logcontext.fillText(players[id].name, 10, (15+(15*i)))
-        logcontext.fillStyle = "grey";
+        
+        if (players[id].ping >= 1400){
+          //GET A BETTER CONNECTION
+          logcontext.fillStyle = "black";
+        }else if(players[id].ping >= 1300){
+          //sad ping
+          logcontext.fillStyle = "red";
+        }else if(players[id].ping >= 1200){
+          //poor ping
+          logcontext.fillStyle = "orange";
+        }else if(players[id].ping >= 1100){
+          //Meh ping
+          logcontext.fillStyle = "yellow";
+        }else if(players[id].ping >= 1000){
+          //Decent ping
+          logcontext.fillStyle = "green";
+        }else if(players[id].ping < 1000){
+          //GOD ping
+          logcontext.fillStyle = "blue";
+        }
+        logcontext.fillText(players[id].name + " : " + players[id].ping, 10, (15+(15*i)))
+/*        logcontext.fillStyle = "grey";
         logcontext.textalign = "right";
-        logcontext.fillText(players[id].score, (resourcemap.playerlog.width-15), (15+(15*i)))
+        logcontext.fillText(players[id].x + " " + players[id].y + " " + players[id].score, (resourcemap.playerlog.width-90), (15+(15*i)))*/
         i++;
       }
+    })
     })
   }
   ClientInit(resourcemap, movement);
 })
 
+module.exports = {ClientInit}
