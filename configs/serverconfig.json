@@ -1,0 +1,30 @@
+{
+  "Accounts":true,
+  "Backups":true,
+  "World":true,
+  "encrypt":true,
+  "rooms":[{
+    "gametype":{
+      "render":"topview",
+      "mode":"pvp",
+      "entities":{
+        "use":true,
+        "list":[],
+        "behaviors":[]
+      },
+      "environment":{
+        "type":"custom",
+        "map2D":"./example.png",
+        "map3D":"./example2.json"
+      },
+      "obstacles":{
+        "models":[],
+        "behaviors":[]
+      },
+      "ranks":{
+        "names":[],
+        "perms":[]
+      }
+  }
+  }]
+}
