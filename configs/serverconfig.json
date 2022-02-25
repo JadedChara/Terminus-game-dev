@@ -1,7 +1,7 @@
 {
-  "Accounts":true,
-  "Backups":true,
-  "World":true,
+  "doAccounts":true,
+  "doBackups":true,
+  "doWorld":true,
   "encrypt":true,
   "rooms":[{
     "gametype":{
@@ -26,5 +26,8 @@
         "perms":[]
       }
   }
-  }]
+  }],
+  "port":8000,
+  "html":"./lobby.html",
+  "script":"./script.js"
 }

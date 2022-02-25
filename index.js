@@ -67,8 +67,14 @@ var moveMode = require("./class/movement.js");
 
 
 //Key function for setting up. This will be further broken up and specified later.
-function initSetup(port, html, script) {
-
+function initSetup(config) {
+/*
+  fs.readFile(path.resolve(config.script),'utf8', function(err,data){
+    script = data;
+  })
+  fs.readFile(path.resolve(config.html),'utf8', function(err,data){
+    html = data
+  })*/
   //Sets up reference folder for storing public scripts.
   fs.mkdir("./static", { recursive: true }, (err) => {
     if (err) {
@@ -77,8 +83,8 @@ function initSetup(port, html, script) {
   })
 
   //Reads your script file set-up, and creates a copy for `/static`. Express uses static for hosting, so it's kinda' necessary.  
-  fs.readFile(script, 'utf8', function(err, data) {
-    fs.writeFile('./static/' + script, data, function() {
+  fs.readFile(config.script, 'utf8', function(err, data) {
+    fs.writeFile('./static/' + config.script, data, function() {
       if (err) {
         return console.error(err);
       }
@@ -93,46 +99,49 @@ function initSetup(port, html, script) {
   })
 
   //World folder. Environment stuff. Obstacles, NPCs, etc.
-  fs.mkdir("./Database/World", { recursive: true }, (err) => {
-    if (err) {
-      return console.error(err);
-    }
-  })
-
+  if(config.doWorld == true){
+    fs.mkdir("./Database/World", { recursive: true }, (err) => {
+      if (err) {
+        return console.error(err);
+      }
+    })
+  }
   //Member folder. Will be encrypted using 'obfuscate' file.
-  fs.mkdir("./Database/Members", { recursive: true }, (err) => {
-    if (err) {
-      return console.error(err);
-    }
-  })
-
+  if(config.doAccounts == true) {
+    fs.mkdir("./Database/Members", { recursive: true }, (err) => {
+      if (err) {
+        return console.error(err);
+      }
+    })
+  }
   //Backup folder. In case of crashes. The plan is to have all data compressed and written to here every couple of minutes, storing up to 5 backups.
-  fs.mkdir("./Database/Backups", { recursive: true }, (err) => {
-    if (err) {
-      return console.error(err);
-    }
-  })
-
+  if(config.doBackups == true){
+    fs.mkdir("./Database/Backups", { recursive: true }, (err) => {
+      if (err) {
+        return console.error(err);
+      }
+    })
+  }
   //Due for an update. Plan is to have this serve as the format, but not yet sure how to implement it.
   fs.writeFile("./Database/Members/archive.json", "{}", function() { })
 
   //Configures express app. Uses `./` as the root name because DIRNAME_ would NOT work.
-  app.set('port', port);
+  app.set('port', config.port);
   app.use(('/static'), express.static("./static"));
   app.use(('/class'),express.static("./static"));
   app.get('/', function(request, response) {
-    response.sendFile(html, { root: ("./") });
+    response.sendFile(config.html, { root: ("./") });
   });
   app.get('/movement.js', function(request, response){
     response.sendFile(__dirname+"/class/movement.js");
   })
 
   //Initializes server instance, and adds a fancy ping bar. Will add TPS and other stats eventually.
-  server.listen(port, function() {
+  server.listen(config.port, function() {
     console.clear();
     console.log();
     const keepalive = require("./keepalive.js");
-    keepalive.init(port,players);
+    keepalive.init(config.port,players);
   });
 }
 
@@ -246,7 +255,8 @@ function configModeration(commands, rankjson, permissions) {
 module.exports = { initSetup, initPlayer };
 
 //Not to be included for release. Initializes the web app.
-initSetup(8000, "./lobby.html", "./script.js")
+var serverconfig = require("./configs/serverconfig.json")
+initSetup(serverconfig)
 
 //Allows for communication on the web app. Also not to be included in released files.
 initPlayer();
