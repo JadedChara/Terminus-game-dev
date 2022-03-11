@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded",function(){
           movedata.left = true;
           break;
         case 68:
-          movedata.right= true;
+          movedata.right = true;
           break;
       }
     })
